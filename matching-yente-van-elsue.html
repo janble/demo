@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analyse de matching — ORE-OFF-014397</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ce-blue: #1976D2;
+    --ce-blue-light: #E3F2FD;
+    --ce-blue-tint: #F4F8FC;
+    --bg-page: #F8FAFC;
+    --bg-card: #FFFFFF;
+    --bg-subtle: #F4F8FC;
+    --border: #E1E8F0;
+    --border-soft: #EEF2F7;
+    --text: #1F2937;
+    --text-soft: #4B5563;
+    --text-muted: #6B7280;
+    --success: #166534;
+    --success-bg: #DCFCE7;
+    --warning: #B45309;
+    --warning-bg: #FEF3C7;
+    --error: #991B1B;
+    --error-bg: #FEE2E2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Open Sans', system-ui, sans-serif;
+    background: var(--bg-page);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--ce-blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── Topbar ── */
+  .topbar {
+    background: #FFF; border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 22px; }
+  .logo { font-weight: 700; font-size: 15px; color: #1A2E4A; letter-spacing: -0.3px; }
+  .logo span { color: var(--ce-blue); }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; color: var(--text-soft); font-weight: 600;
+  }
+  .back-link:hover { color: var(--ce-blue); text-decoration: none; }
+  .back-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.2; }
+  .client-tag { font-size: 13px; color: var(--text-soft); font-weight: 600; }
+
+  /* ── Page wrap ── */
+  .wrap { max-width: 980px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  /* ── Page header ── */
+  .page-head { margin-bottom: 24px; }
+  .eyebrow {
+    font-size: 11.5px; font-weight: 700; color: var(--ce-blue);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;
+  }
+  .page-title { font-size: 28px; font-weight: 700; letter-spacing: -0.4px; margin-bottom: 8px; }
+  .page-sub { font-size: 14.5px; color: var(--text-soft); }
+  .page-sub strong { color: var(--text); font-weight: 600; }
+  .page-sub a { font-weight: 600; }
+
+  /* ── Hero score card ── */
+  .hero {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 22px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 36px;
+    align-items: center;
+  }
+  .hero-info h2 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .hero-info p { font-size: 13.5px; color: var(--text-soft); max-width: 480px; margin-bottom: 16px; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 12px;
+    background: var(--ce-blue-tint); color: var(--ce-blue);
+    font-size: 11.5px; font-weight: 600;
+    border: 1px solid var(--border);
+  }
+  .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ce-blue); }
+  .pill.warn { background: var(--warning-bg); color: var(--warning); border-color: #FDE68A; }
+  .pill.warn .dot { background: var(--warning); }
+
+  .score-ring {
+    position: relative;
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    background: conic-gradient(var(--ce-blue) 0deg 306deg, var(--border-soft) 306deg 360deg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .score-ring::before {
+    content: ""; position: absolute; inset: 10px;
+    background: var(--bg-card); border-radius: 50%;
+  }
+  .score-ring-inner { position: relative; text-align: center; }
+  .score-num { font-size: 44px; font-weight: 700; line-height: 1; letter-spacing: -1.5px; }
+  .score-out { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+  .score-lbl {
+    font-size: 10.5px; color: var(--ce-blue); font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6px;
+  }
+
+  /* ── Section card (always open) ── */
+  .section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .section-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 16px; align-items: center;
+    padding: 16px 22px;
+  }
+  .sec-icon {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: var(--ce-blue-light); color: var(--ce-blue);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .sec-icon svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .sec-text .sec-name { font-size: 14.5px; font-weight: 700; }
+  .sec-text .sec-meta { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+  .sec-bar { width: 140px; height: 6px; background: var(--border-soft); border-radius: 999px; overflow: hidden; }
+  .sec-bar-fill { height: 100%; background: var(--ce-blue); border-radius: 999px; }
+  .sec-bar-fill.warn { background: linear-gradient(90deg, #F59E0B, var(--ce-blue)); }
+  .sec-bar-fill.bad  { background: linear-gradient(90deg, #DC2626, #F59E0B); }
+
+  .sec-score {
+    font-size: 20px; font-weight: 700;
+    min-width: 64px; text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .sec-score .out { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-left: 1px; }
+
+  .sec-body { padding: 4px 22px 14px; border-top: 1px solid var(--border-soft); }
+
+  /* ── Skill rows ── */
+  .skill-row {
+    display: grid;
+    grid-template-columns: 22px 1fr auto 110px 50px;
+    gap: 14px; align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .skill-row:last-child { border-bottom: none; }
+  .status {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  .status.ok { background: var(--success-bg); color: var(--success); }
+  .status.partial { background: var(--warning-bg); color: var(--warning); }
+  .status.no { background: var(--error-bg); color: var(--error); }
+
+  .skill-name { font-size: 13.5px; font-weight: 500; }
+  .skill-name .sub {
+    display: block;
+    font-size: 11.5px; color: var(--text-muted); font-weight: 400;
+    margin-top: 2px;
+  }
+  .skill-tag {
+    font-size: 10.5px; padding: 2px 8px; border-radius: 10px;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .skill-tag.must { background: #FEF3C7; color: #92400E; }
+  .skill-tag.should { background: #E0E7FF; color: #3730A3; }
+
+  .mini-bar { height: 5px; background: var(--border-soft); border-radius: 999px; overflow: hidden; }
+  .mini-fill { height: 100%; background: var(--success); border-radius: 999px; }
+  .mini-fill.partial { background: #F59E0B; }
+  .mini-fill.bad { background: #DC2626; }
+
+  .skill-pts {
+    font-size: 13px; font-weight: 700;
+    text-align: right; font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Compare cells (locatie) ── */
+  .compare-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    margin-top: 4px; margin-bottom: 12px;
+  }
+  .compare-cell {
+    background: var(--bg-subtle);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .compare-cell .lbl {
+    font-size: 10.5px; color: var(--text-muted); text-transform: uppercase;
+    letter-spacing: 0.08em; font-weight: 700; margin-bottom: 4px;
+  }
+  .compare-cell .val { font-size: 14px; font-weight: 700; }
+  .compare-cell .sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .distance-row {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center;
+    padding: 10px 14px; background: var(--bg-subtle); border-radius: 8px;
+    font-size: 13px;
+  }
+  .distance-row .val { font-weight: 700; }
+  .distance-row .v2 { color: var(--text-muted); text-align: right; }
+
+  /* ── Timeline (disponibilité) ── */
+  .timeline { position: relative; margin: 12px 4px 4px; height: 70px; }
+  .timeline-axis {
+    position: absolute; top: 30px; left: 0; right: 0;
+    height: 2px; background: var(--border);
+  }
+  .timeline-band {
+    position: absolute; top: 26px; height: 10px;
+    background: var(--success-bg);
+    border-radius: 4px;
+  }
+  .timeline-marker {
+    position: absolute; top: 22px; width: 18px; height: 18px;
+    border-radius: 50%; background: #FFF;
+    transform: translateX(-50%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .timeline-marker .core { width: 10px; height: 10px; border-radius: 50%; }
+  .timeline-marker.available .core { background: var(--success); }
+  .timeline-marker.start .core { background: var(--ce-blue); }
+  .timeline-marker.end .core { background: var(--text-muted); }
+  .timeline-label {
+    position: absolute; transform: translateX(-50%);
+    text-align: center;
+  }
+  .timeline-label .date { font-size: 12px; font-weight: 700; }
+  .timeline-label .note {
+    font-size: 10.5px; color: var(--text-muted); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .timeline-label.top { top: -2px; }
+  .timeline-label.bottom { top: 48px; }
+
+  /* ── Calc footer ── */
+  .calc-footer {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin-top: 12px;
+  }
+  .calc-title {
+    font-size: 11.5px; font-weight: 700; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px;
+  }
+  .calc-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 13.5px; font-variant-numeric: tabular-nums;
+  }
+  .calc-table tr { border-bottom: 1px solid var(--border-soft); }
+  .calc-table tr:last-child { border-bottom: none; }
+  .calc-table td { padding: 9px 0; }
+  .calc-table .cat { font-weight: 500; }
+  .calc-table .score, .calc-table .weight, .calc-table .res {
+    text-align: right; color: var(--text-soft);
+  }
+  .calc-table .res { font-weight: 700; color: var(--text); }
+  .calc-table .total-row td {
+    padding-top: 16px; font-size: 16.5px; font-weight: 700; color: var(--ce-blue);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
+    .score-ring { margin: 0 auto; }
+    .skill-row { grid-template-columns: 22px 1fr auto auto; gap: 10px; }
+    .skill-row .mini-bar { grid-column: 2 / 5; height: 4px; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .page-title { font-size: 22px; }
+    .section-head { grid-template-columns: auto 1fr; row-gap: 8px; }
+    .section-head .sec-bar { grid-column: 1 / 3; width: 100%; }
+    .section-head .sec-score { grid-column: 1 / 3; text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Page head -->
+  <div class="page-head">
+    <div class="eyebrow">Analyse de matching</div>
+    <h1 class="page-title">Yente Van Elsue</h1>
+    <p class="page-sub">
+      Senior Database Administrator — Oracle ·
+      pour la demande <a href="#">ORE000954</a> de
+      <strong>ORES</strong> (Gosselies)
+    </p>
+  </div>
+
+  <!-- Hero score -->
+  <div class="hero">
+    <div class="hero-info">
+      <h2>Score qualité du profil</h2>
+      <p>Évaluation automatique du profil basée sur les compétences requises, la localisation et la disponibilité.</p>
+      <div class="hero-pills">
+        <span class="pill"><span class="dot"></span>Compétences Must have</span>
+        <span class="pill"><span class="dot"></span>Compétences Should have</span>
+        <span class="pill warn"><span class="dot"></span>Localisation</span>
+        <span class="pill"><span class="dot"></span>Disponibilité</span>
+      </div>
+    </div>
+    <div class="score-ring">
+      <div class="score-ring-inner">
+        <div class="score-num">85</div>
+        <div class="score-out">/ 100</div>
+        <div class="score-lbl">Qualité</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COMPÉTENCES MUST HAVE ── -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sec-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+      <div class="sec-text">
+        <div class="sec-name">Compétences — Must have</div>
+        <div class="sec-meta">7 critères évalués · poids global 60%</div>
+      </div>
+      <div class="sec-bar"><div class="sec-bar-fill" style="width: 95%;"></div></div>
+      <div class="sec-score">95<span class="out">/100</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="skill-row">
+        <span class="status ok">✓</span>
+        <span class="skill-name">Windows Server et Unix/Linux</span>
+        <span class="skill-tag must">Must</span>
+        <div class="mini-bar"><div class="mini-fill" style="width:100%;"></div></div>
+        <span class="skill-pts">100</span>
+      </div>
+      <div class="skill-row">
+        <span class="status ok">✓</span>
+        <span class="skill-name">Environnements virtualisés (VMWare)</span>
+        <span class="skill-tag must">Must</span>
+        <div class="mini-bar"><div class="mini-fill" style="width:100%;"></div></div>
+        <span class="skill-pts">100</span>
+      </div>
+      <div class="skill-row">
+        <span class="status ok">✓</span>
+        <span class="skill-name">Haute disponibilité (DRP/HA)</span>
+        <span class="skill-tag must">Must</span>
+        <div class="mini-bar"><div class="mini-fill" style="width:100%;"></div></div>
+        <span class="skill-pts">100</span>
+      </div>
+      <div class="skill-row">
+        <span class="status ok">✓</span>
+        <span class="skill-name">Français C2 CEFR</span>
+        <span class="skill-tag must">Must</span>
+        <div class="mini-bar"><div class="mini-fill" style="width:100%;"></div></div>
+        <span class="skill-pts">100</span>
+      </div>
+      <div class="skill-row">
+        <span class="status ok">✓</span>
+        <span class="skill-name">Bases de données : SQL Server, Oracle</span>
+        <span class="skill-tag must">Must</span>
+        <div class="mini-bar"><div class="mini-fill" style="width:100%;"></div></div>
+        <span class="skill-pts">100</span>
+      </div>
+      <div class="skill-row">
+        <span class="status ok">✓</span>
+        <span class="skill-name">Réalisation et exécution de scripts</span>
+        <span class="skill-tag must">Must</span>
+        <div class="mini-bar"><div class="mini-fill" style="width:100%;"></div></div>
+        <span class="skill-pts">100</span>
+      </div>
+      <div class="skill-row">
+        <span class="status partial">◐</span>
+        <span class="skill-name">
+          Mise en place, optimisation et monitoring DB
+          <span class="sub">Senior (&gt;5 ans) demandé · Medior (3–5 ans) proposé</span>
+        </span>
+        <span class="skill-tag must">Must</span>
+        <div class="mini-bar"><div class="mini-fill partial" style="width:65%;"></div></div>
+        <span class="skill-pts">65</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COMPÉTENCES SHOULD HAVE ── -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sec-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+      <div class="sec-text">
+        <div class="sec-name">Compétences — Should have</div>
+        <div class="sec-meta">2 critères évalués · poids global 10%</div>
+      </div>
+      <div class="sec-bar"><div class="sec-bar-fill bad" style="width: 50%;"></div></div>
+      <div class="sec-score">50<span class="out">/100</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="skill-row">
+        <span class="status no">✕</span>
+        <span class="skill-name">Solutions de Backup (Veeam, Netapp)</span>
+        <span class="skill-tag should">Should</span>
+        <div class="mini-bar"><div class="mini-fill bad" style="width:0%;"></div></div>
+        <span class="skill-pts">0</span>
+      </div>
+      <div class="skill-row">
+        <span class="status ok">✓</span>
+        <span class="skill-name">Contexte d'entreprise similaire (&gt;2000 utilisateurs)</span>
+        <span class="skill-tag should">Should</span>
+        <div class="mini-bar"><div class="mini-fill" style="width:100%;"></div></div>
+        <span class="skill-pts">100</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LOCALISATION ── -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sec-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-7.5-7-12a7 7 0 1 1 14 0c0 4.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+      <div class="sec-text">
+        <div class="sec-name">Localisation</div>
+        <div class="sec-meta">Poids global 15%</div>
+      </div>
+      <div class="sec-bar"><div class="sec-bar-fill warn" style="width: 54%;"></div></div>
+      <div class="sec-score">54<span class="out">/100</span></div>
+    </div>
+    <div class="sec-body">
+      <div class="compare-grid">
+        <div class="compare-cell">
+          <div class="lbl">Domicile candidat</div>
+          <div class="val">1390 Grez-Doiceau</div>
+          <div class="sub">Brabant wallon</div>
+        </div>
+        <div class="compare-cell">
+          <div class="lbl">Lieu de mission</div>
+          <div class="val">6041 Gosselies</div>
+          <div class="sub">Hainaut · siège ORES</div>
+        </div>
+      </div>
+      <div class="distance-row">
+        <span>Distance à vol d'oiseau</span>
+        <span class="val">~34 km</span>
+        <span class="v2">Grez-Doiceau ↔ Gosselies</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DISPONIBILITÉ ── -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sec-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M16 3v4M8 3v4M4 11h16"/></svg></div>
+      <div class="sec-text">
+        <div class="sec-name">Disponibilité</div>
+        <div class="sec-meta">Poids global 15%</div>
+      </div>
+      <div class="sec-bar"><div class="sec-bar-fill" style="width: 100%;"></div></div>
+      <div class="sec-score">100<span class="out">/100</span></div>
+    </div>
+  </div>
+
+  <!-- ── CALCUL ── -->
+  <div class="calc-footer">
+    <div class="calc-title">Calcul du score qualité</div>
+    <table class="calc-table">
+      <tr>
+        <td class="cat">Compétences — Must have</td>
+        <td class="score">95</td>
+        <td class="weight">× 60%</td>
+        <td class="res">57,00</td>
+      </tr>
+      <tr>
+        <td class="cat">Compétences — Should have</td>
+        <td class="score">50</td>
+        <td class="weight">× 10%</td>
+        <td class="res">5,00</td>
+      </tr>
+      <tr>
+        <td class="cat">Localisation</td>
+        <td class="score">54</td>
+        <td class="weight">× 15%</td>
+        <td class="res">8,10</td>
+      </tr>
+      <tr>
+        <td class="cat">Disponibilité</td>
+        <td class="score">100</td>
+        <td class="weight">× 15%</td>
+        <td class="res">15,00</td>
+      </tr>
+      <tr class="total-row">
+        <td>Score qualité total</td>
+        <td></td>
+        <td></td>
+        <td class="res">85 / 100</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>
