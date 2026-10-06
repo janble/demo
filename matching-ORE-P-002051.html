@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match result – ORE-P-002051</title>
+<style>
+  :root {
+    --text: #1F2937; --soft: #4B5563; --muted: #6B7280;
+    --border: #E5E7EB; --border-soft: #F1F3F6; --bg: #F7F8FA; --card: #FFFFFF;
+    --func: #E0559E; --skill: #2F9BDB; --loc: #8B5CF6;
+    --ok: #15803D; --ok-bg: #DCFCE7; --mid: #B45309; --mid-bg: #FEF3C7; --no: #B91C1C; --no-bg: #FEE2E2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .head { display: flex; justify-content: space-between; align-items: center; gap: 24px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 22px 26px; margin-bottom: 16px; }
+  .head .lbl { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .head h1 { font-size: 22px; font-weight: 700; margin: 4px 0 6px; }
+  .head .meta { font-size: 13px; color: var(--soft); }
+  .head .meta b { color: var(--text); font-weight: 600; }
+  .total { text-align: center; min-width: 120px; }
+  .total .num { font-size: 46px; font-weight: 700; line-height: 1; letter-spacing: -1px; }
+  .total .num small { font-size: 22px; font-weight: 600; }
+  .total .cap { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+  .card h2 { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 16px 22px 0; }
+
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 12px 22px 8px; border-bottom: 1px solid var(--border); }
+  td { padding: 11px 22px; border-bottom: 1px solid var(--border-soft); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .r { text-align: right; }
+  .sum td { border-top: 1px solid var(--border); font-weight: 700; }
+
+  .aspect { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+  .sw { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .sw.func { background: var(--func); } .sw.skill { background: var(--skill); } .sw.loc { background: var(--loc); }
+  .bar { height: 6px; width: 110px; background: var(--border-soft); border-radius: 99px; overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 8px; }
+  .bar i { display: block; height: 100%; }
+
+  .chip { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+  .chip.req { background: #FDE7F1; color: #9D174D; }
+  .chip.opt { background: #E5E7EB; color: #374151; }
+  .val { font-weight: 600; }
+  .none { color: var(--muted); }
+  .sc { display: inline-block; min-width: 44px; text-align: center; font-weight: 700; font-size: 12.5px; padding: 2px 8px; border-radius: 10px; }
+  .sc.ok { background: var(--ok-bg); color: var(--ok); }
+  .sc.mid { background: var(--mid-bg); color: var(--mid); }
+  .sc.no { background: var(--no-bg); color: var(--no); }
+  .sub { display: flex; justify-content: space-between; padding: 14px 22px 0; font-size: 12px; color: var(--muted); }
+  .sub b { color: var(--text); }
+
+  @media (max-width: 640px) {
+    .head { flex-direction: column; align-items: flex-start; }
+    th, td { padding-left: 12px; padding-right: 12px; }
+    .bar { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <div>
+      <div class="lbl">Match result</div>
+      <h1>Proposal ORE-P-002051</h1>
+      <div class="meta">UpWider · Request <b>ORE001008</b> – Analyste Fonctionnel SAP Finance Senior</div>
+    </div>
+    <div class="total">
+      <div class="num">96<small>%</small></div>
+      <div class="cap">Match score</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Score overview</h2>
+    <table>
+      <tr><th>Aspect</th><th>Aspect score</th><th class="r">Weight</th><th class="r">Contributed score</th></tr>
+      <tr>
+        <td><span class="aspect"><span class="sw func"></span>Job function</span></td>
+        <td><span class="bar"><i style="width:100%;background:var(--func)"></i></span>100%</td>
+        <td class="r">20</td><td class="r">20.0</td>
+      </tr>
+      <tr>
+        <td><span class="aspect"><span class="sw skill"></span>Hard skills</span></td>
+        <td><span class="bar"><i style="width:100%;background:var(--skill)"></i></span>100%</td>
+        <td class="r">60</td><td class="r">60.0</td>
+      </tr>
+      <tr>
+        <td><span class="aspect"><span class="sw loc"></span>Location</span></td>
+        <td><span class="bar"><i style="width:80%;background:var(--loc)"></i></span>80%</td>
+        <td class="r">20</td><td class="r">16.0</td>
+      </tr>
+      <tr class="sum"><td>Total</td><td></td><td class="r">100</td><td class="r">96.0%</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="sw func" style="display:inline-block;margin-right:8px"></span>Job function · 100%</h2>
+    <table>
+      <tr><th>Requested</th><th>Matched value (CV)</th><th class="r">Score</th></tr>
+      <tr><td class="val">Analyste Fonctionnel SAP Finance</td><td>Functional Analyst SAP Finance</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="sw skill" style="display:inline-block;margin-right:8px"></span>Hard skills · 100%</h2>
+    <div class="sub"><span>Required · weight 10 each</span><span>Required matched: <b>8 / 8</b></span></div>
+    <table>
+      <tr><th>Requested</th><th></th><th>Matched value (CV)</th><th class="r">Score</th></tr>
+      <tr><td class="val">Expérience prouvée avec des nouvelles structures Finance S/4 (Universal Journal, simplification des tables)</td><td><span class="chip req">Required</span></td><td>S/4HANA Finance · Universal Journal</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Expérience prouvée dans la rédaction des scénarios de test et leur validation</td><td><span class="chip req">Required</span></td><td>Test scenarios · writing and validation</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Participation à au moins un projet de migration ou de déploiement S/4HANA</td><td><span class="chip req">Required</span></td><td>S/4HANA migration project</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Exigence linguistique: Niveau de français C2 sur l&#39;échelle européenne CEFR</td><td><span class="chip req">Required</span></td><td>French · native</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Connaissance prouvée de SAP Finance en ECC6</td><td><span class="chip req">Required</span></td><td>SAP Finance · ECC6</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Expérience prouvée de SAP Finance en S/4 HANA</td><td><span class="chip req">Required</span></td><td>SAP Finance · S/4HANA</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Expérience prouvée en tant que analyste fonctionnel · min. 5 yrs</td><td><span class="chip req">Required</span></td><td>Functional analyst · 10 yrs</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Functional specifications</td><td><span class="chip req">Required</span></td><td>Functional specifications</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+    </table>
+    <div class="sub"><span>Optional · weight 5 each</span><span>Optional matched: <b>8 / 8</b></span></div>
+    <table>
+      <tr><th>Requested</th><th></th><th>Matched value (CV)</th><th class="r">Score</th></tr>
+      <tr><td class="val">Capacité à formaliser une analyse fonctionnelle dans les différents diagrammes UML</td><td><span class="chip opt">Optional</span></td><td>UML</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Capacité à interpréter et comprendre un diagramme BPMN</td><td><span class="chip opt">Optional</span></td><td>BPMN</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Connaissance de l&#39;anglais B1</td><td><span class="chip opt">Optional</span></td><td>English · fluent</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Expérience avec un outil de gestion du testing (HPQC ou équivalent)</td><td><span class="chip opt">Optional</span></td><td>HP Quality Center</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Expérience avec un outil de modélisation (Sparx EA ou équivalent)</td><td><span class="chip opt">Optional</span></td><td>Sparx Enterprise Architect</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Expérience prouvée en méthodologie et technique de testing (intégration et fonctionnel)</td><td><span class="chip opt">Optional</span></td><td>Integration and functional testing</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Scrum</td><td><span class="chip opt">Optional</span></td><td>Scrum</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+      <tr><td class="val">Jira</td><td><span class="chip opt">Optional</span></td><td>Jira</td><td class="r"><span class="sc ok">1.00</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="sw loc" style="display:inline-block;margin-right:8px"></span>Location · 80%</h2>
+    <table>
+      <tr><th>Requested</th><th>Matched value (CV)</th><th class="r">Distance</th><th class="r">Score</th></tr>
+      <tr><td class="val">6041 Gosselies</td><td>7130 Binche</td><td class="r">20 km</td><td class="r"><span class="sc mid">0.80</span></td></tr>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>
