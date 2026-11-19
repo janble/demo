@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Score details - Pieter Janssens</title><style>
+:root{--t:#1F2937;--s:#4B5563;--m:#6B7280;--b:#E5E7EB;--bs:#F1F3F6;--bg:#F3F4F6;--ok:#22A35A;--no:#D9534F;--half:#22A35A;--badge:#E7F6EC;--badgeT:#2F7D46}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--t);font-size:15px;line-height:1.5}
+.modal{max-width:1000px;margin:24px auto;background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.08);overflow:hidden}
+.bar{display:flex;align-items:flex-end;justify-content:space-between;background:#F7F8FA;border-bottom:1px solid var(--b);padding:12px 24px 0}
+.bar h1{font-size:18px;font-weight:600;padding-bottom:12px}
+.tab{background:#fff;border:1px solid var(--b);border-bottom:none;border-radius:8px 8px 0 0;padding:9px 18px;color:var(--s);font-size:15px}
+.body{padding:26px 40px 34px}
+.who{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.who h2{font-size:22px;font-weight:500}
+.badge{background:var(--badge);color:var(--badgeT);font-weight:600;font-size:14px;padding:3px 10px;border-radius:6px}
+.sec{margin-bottom:24px}
+.sec h3{font-size:18px;font-weight:600;margin-bottom:14px}
+.sec h3:before{content:"⌄";color:var(--m);margin-right:10px;font-size:14px}
+.lead{margin:0 0 12px 0}
+.pt{display:flex;gap:10px;margin:0 0 10px 6px}
+.ic{flex:0 0 18px;width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-top:3px;color:#fff}
+.ic.ok{background:var(--ok)} .ic.no{background:#fff;border:1.5px solid var(--no);color:var(--no)}
+.ic.half{background:linear-gradient(90deg,var(--half) 50%,#CDEBD7 50%)}
+.ic.okl{background:#fff;border:1.5px solid var(--ok);color:var(--ok)}
+.ic.plus{background:#fff;border:1.5px solid #9CA3AF;color:#9CA3AF}
+u{text-decoration:none;border-bottom:1.5px dotted #9CA3AF}
+u.no{border-bottom-color:var(--no)}
+table{width:100%;border-collapse:collapse;border:1px solid var(--b)}
+th{text-align:left;font-weight:600;color:var(--s);padding:12px 20px;font-size:16px}
+th.c{color:var(--t)}
+tr.grp td{background:#F3F4F6;font-weight:600;font-size:16px;padding:11px 20px;border-top:1px solid var(--b)}
+td{padding:9px 20px;vertical-align:middle}
+td.req{color:var(--m);padding-left:46px}
+.vp{font-size:11px;font-weight:600;color:#9D174D;background:#FDE7F1;border-radius:8px;padding:1px 7px;margin-left:8px}
+.cell{display:flex;align-items:center;gap:10px}
+.badge.warn{background:#FEF3E2;color:#B45309}
+
+.score td.n{text-align:right;white-space:nowrap}
+.score tr.tot td{font-weight:700;border-top:2px solid #333}
+.note{color:#666;font-size:12px;margin-top:6px}
+</style></head><body>
+<div class="modal">
+ <div class="bar"><h1>Senior Project Manager - case management platform (5-10 years)</h1><span class="tab">Score details</span></div>
+ <div class="body">
+  <div class="who"><h2>Pieter Janssens · Contingent Workforce Management</h2><span class="badge">Total score 92/100</span></div>
+  <div class="sec"><h3>Score by award criterion</h3>
+   <table class="score">
+    <tr><th>Criterion</th><th class="c">Weight</th><th>Result</th><th class="c">Points</th></tr>
+    <tr><td>Technical knowledge</td><td class="n">35%</td><td>5 of 5 = 100%</td><td class="n">35.0</td></tr><tr><td>Recent use of technologies</td><td class="n">25%</td><td>5 of 5 = 100%</td><td class="n">25.0</td></tr><tr><td>Languages</td><td class="n">10%</td><td>4 of 5 = 80%</td><td class="n">8.0</td></tr><tr><td>Price</td><td class="n">30%</td><td>€ 105.00/h · lowest € 84.00 → 80%</td><td class="n">24.0</td></tr><tr class="tot"><td>Total score</td><td class="n">100%</td><td></td><td class="n">92.0</td></tr>
+   </table>
+   <p class="note">Weights as set for this request: technical knowledge 35%, recent use of technologies 25%, languages 10%, price 30%. Price score = lowest hourly rate / hourly rate of the candidate.</p>
+  </div>
+  <div class="sec"><h3>Requested and found</h3>
+   <table>
+    <tr><th>Requirement</th><th class="c">Pieter Janssens</th></tr>
+    <tr class="grp"><td>Technical knowledge (35%)</td><td><div class="cell"><span class="ic ok">✓</span>5 of 5</div></td></tr><tr><td class="req">PRINCE2 or PMP certification</td><td><div class="cell"><span class="ic ok">✓</span>PMP · PRINCE2 Practitioner</div></td></tr><tr><td class="req">Agile delivery (Scrum, SAFe)</td><td><div class="cell"><span class="ic ok">✓</span>SAFe Program Consultant</div></td></tr><tr><td class="req">Planning and budget control (MS Project)</td><td><div class="cell"><span class="ic ok">✓</span>MS Project · budgets up to € 6M</div></td></tr><tr><td class="req">Risk and change management</td><td><div class="cell"><span class="ic ok">✓</span>RAID log · Prosci change</div></td></tr><tr><td class="req">Business process re-engineering</td><td><div class="cell"><span class="ic ok">✓</span>BPR of 3 government processes</div></td></tr><tr class="grp"><td>Recent use of technologies (25%)</td><td><div class="cell"><span class="ic ok">✓</span>5 of 5</div></td></tr><tr><td class="req">Jira and Confluence - used in the last 2 years</td><td><div class="cell"><span class="ic ok">✓</span>Jira · Confluence (2026)</div></td></tr><tr><td class="req">MS Project - used in the last 2 years</td><td><div class="cell"><span class="ic ok">✓</span>MS Project (2026)</div></td></tr><tr><td class="req">SAFe programme increment planning - used in the last 2 years</td><td><div class="cell"><span class="ic ok">✓</span>PI planning (2026)</div></td></tr><tr><td class="req">ServiceNow (IT service management) - used in the last 3 years</td><td><div class="cell"><span class="ic ok">✓</span>ServiceNow (2025)</div></td></tr><tr><td class="req">Power BI project reporting - used in the last 3 years</td><td><div class="cell"><span class="ic ok">✓</span>Power BI (2026)</div></td></tr><tr class="grp"><td>Languages (10%)</td><td><div class="cell"><span class="ic half"></span>4 of 5</div></td></tr><tr><td class="req">Dutch - C1</td><td><div class="cell"><span class="ic ok">✓</span>Dutch · native</div></td></tr><tr><td class="req">French - B2</td><td><div class="cell"><span class="ic ok">✓</span>French · B2</div></td></tr><tr><td class="req">English - B2</td><td><div class="cell"><span class="ic ok">✓</span>English · C1</div></td></tr><tr><td class="req">Written reporting in Dutch and French</td><td><div class="cell"><span class="ic ok">✓</span>Reports in NL and FR</div></td></tr><tr><td class="req">Chairing meetings in French</td><td><div class="cell"><span class="ic no">✕</span>French · B1 for meetings</div></td></tr>
+   </table>
+  </div>
+ </div>
+</div></body></html>
